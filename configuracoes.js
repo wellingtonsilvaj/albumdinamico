@@ -4,7 +4,7 @@ document.getElementById('seletorArquivo').addEventListener('change', function (e
 
     const galeria = document.getElementById('galeria');
 
-    Array.from(arquivos).forEach(arquivo =>{
+    Array.from(arquivos).forEach(arquivo => {
 
         if(arquivo.type.startsWith('image/')){
 
@@ -40,5 +40,40 @@ document.getElementById('seletorArquivo').addEventListener('change', function (e
 
 function abrirModal(src, descricao){
 
+    const modal = document.getElementById('modal');
 
+    modal.style.display = 'flex';
+
+    modal.querySelector('img').src = src;
+
+    modal.querySelector('.descricao').textContent = descricao || "Sem descrição";
+
+    window.imagemAtual = src;
+
+}
+
+function fecharModal(){
+
+    const modal = document.getElementById('modal');
+
+    modal.style.display = 'none';
+
+}
+
+function removerImagem(event){
+
+    event.stopPropagation();
+
+    const imagens = document.querySelectorAll('#galeria .imagem img');
+
+    imagens.forEach(img => {
+
+        if(img.src === window.imagemAtual){
+
+            img.parentElement.remove();
+
+        }
+    });
+
+    fecharModal();
 }
